@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+
 import "./globals.css";
 
 const geistSans = localFont({
@@ -27,7 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <NextThemesProvider attribute="class"
+      enableSystem
+      defaultTheme="system"
+      disableTransitionOnChange>
+
         {children}
+      </NextThemesProvider>
       </body>
     </html>
   );
