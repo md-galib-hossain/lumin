@@ -4,6 +4,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes"
 
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import ReactQueryProvider from "./ReactQueryProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,6 +31,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <ReactQueryProvider>
+    
       <NextThemesProvider attribute="class"
       enableSystem
       defaultTheme="system"
@@ -38,6 +41,7 @@ export default function RootLayout({
         {children}
       </NextThemesProvider>
       <Toaster/>
+      </ReactQueryProvider>
       </body>
     </html>
   );
