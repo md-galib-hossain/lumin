@@ -6,9 +6,12 @@ import { submitPost } from "./actions";
 import { useSession } from "@/app/(main)/SessionProvider";
 import UserAvatar from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
-import "./styles.css"
+import "./styles.css";
+import { useSubmitPostMutation } from "./mutation";
+import LoadingButton from "@/components/LoadingButton";
 const PostEditor = () => {
   const { user } = useSession();
+  const mutation = useSubmitPostMutation();
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -26,9 +29,12 @@ const PostEditor = () => {
       blockSeparator: "\n",
     }) || "";
 
-  const onSubmit = async () => {
-    await submitPost(input);
-    editor?.commands.clearContent();
+  const onSubmit = () => {
+    mutation.mutate(input, {
+      onSuccess: () => {
+        editor?.commands.clearContent();
+      },
+    });
   };
 
   return (
@@ -37,13 +43,18 @@ const PostEditor = () => {
         <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
         <EditorContent
           editor={editor}
-          className="max-h-[20rem] w-full overflow-y-auto bg-background rounded-2xl px-5 py-3"
+          className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3"
         />
       </div>
       <div className="flex justify-end">
-<Button onClick={onSubmit} disabled={!input.trim()} className="min-w-20">
-Post
-</Button>
+        <LoadingButton
+          loading={mutation.isPending}
+          onClick={onSubmit}
+          disabled={!input.trim()}
+          className="min-w-20"
+        >
+          Post
+        </LoadingButton>
       </div>
     </div>
   );
