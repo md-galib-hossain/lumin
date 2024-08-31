@@ -59,7 +59,7 @@ export default async function Page({ params: { username } }: PageProps) {
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
       <div className="rounded-2xl bg-card p-5 shadow-sm">
 <h2 className="text-center text-xl font-bold">
-  {user.displayName}&apos; posts
+  {user.displayName}&apos;s posts
 </h2>
 
       </div>
