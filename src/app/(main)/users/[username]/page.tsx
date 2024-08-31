@@ -31,7 +31,7 @@ const getUser = cache(async (username: string, loggedInUserId: string) => {
 });
 
 //generate dynamic metadata.. pagetitle is gonna be the display name of the user so avoiding double database request I used cache function
-export async function generateMetaData({
+export async function generateMetadata({
   params: { username },
 }: PageProps): Promise<Metadata> {
   const { user: loggedInUser } = await validateRequest();
