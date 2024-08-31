@@ -17,8 +17,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | lumin",
-    default : "lumin"
+    template: "%s | Lumin-Space",
+    default : "Lumin-Space"
   },
   description: "The social media app for spreading Lumin",
 };
