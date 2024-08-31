@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import loginImage from "@/assets/login-image.jpg";
 import LoginForm from "./LoginForm";
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Login",
 };
 const page = () => {
