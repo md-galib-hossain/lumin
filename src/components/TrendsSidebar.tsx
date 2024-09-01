@@ -10,6 +10,7 @@ import { formateNumber } from "@/lib/utils";
 import FollowBUtton from "./FollowButton";
 import FollowButton from "./FollowButton";
 import { getUserDataSelect } from "@/lib/types";
+import UserTooltip from "./UserTooltip";
 
 const TrendsSidebar = () => {
   return (
@@ -46,6 +47,9 @@ const WhoToFollow = async () => {
       <div className="text-xl font-bold">Who to follow</div>
       {usersToFollow.map((user) => (
         <div key={user.id} className="flex items-center justify-between gap-3">
+        <UserTooltip user={user}>
+
+       
           <Link
             href={`/users/${user.username}`}
             className="flex items-center gap-3"
@@ -60,6 +64,7 @@ const WhoToFollow = async () => {
               </p>
             </div>
           </Link>
+          </UserTooltip>
           <FollowButton
             userId={user.id}
             initialState={{
