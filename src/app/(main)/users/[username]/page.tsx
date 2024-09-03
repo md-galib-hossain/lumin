@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import UserPosts from "./UserPosts";
 import Linkify from "@/components/Linkify";
+import EditProfileButton from "./EditProfileButton";
 
 interface PageProps {
   params: { username: string };
@@ -58,13 +59,12 @@ export default async function Page({ params: { username } }: PageProps) {
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
-      <div className="rounded-2xl bg-card p-5 shadow-sm">
-<h2 className="text-center text-xl font-bold">
-  {user.displayName}&apos;s posts
-</h2>
-
-      </div>
-      <UserPosts userId={user.id}/>
+        <div className="rounded-2xl bg-card p-5 shadow-sm">
+          <h2 className="text-center text-xl font-bold">
+            {user.displayName}&apos;s posts
+          </h2>
+        </div>
+        <UserPosts userId={user.id} />
       </div>
       <TrendsSidebar />
     </main>
@@ -107,7 +107,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
           </div>
         </div>
         {user.id === loggedInUserId ? (
-          <Button>Edit Profile</Button>
+          <EditProfileButton user={user} />
         ) : (
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
@@ -115,12 +115,11 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       {user.bio && (
         <>
           <hr />
-         <Linkify>
-         <div className="overflow-hidden whitespace-pre-line break-words">
-            {user.bio}
-          </div>
-         </Linkify>
-
+          <Linkify>
+            <div className="overflow-hidden whitespace-pre-line break-words">
+              {user.bio}
+            </div>
+          </Linkify>
         </>
       )}
     </div>
