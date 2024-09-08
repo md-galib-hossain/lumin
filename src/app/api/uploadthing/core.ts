@@ -57,6 +57,7 @@ const media = await prisma.media.create({
 return {mediaId : media.id}
 
     })
+   
 } satisfies FileRouter;
 
 export type AppFileRouter = typeof fileRouter;

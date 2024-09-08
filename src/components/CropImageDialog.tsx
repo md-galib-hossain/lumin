@@ -43,7 +43,7 @@ export default function CropImageDialog({
           ref={cropperRef}
           className="mx-auto size-fit"
         />
-        <DialogFooter>
+        <DialogFooter className="flex gap-2">
           <Button variant={"secondary"} onClick={onClose}>
             Cancel
           </Button>
