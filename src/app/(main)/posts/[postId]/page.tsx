@@ -26,7 +26,7 @@ const getPost = cache(async (postId: string, loggedInUserId: string) => {
   return post;
 });
 
-export async function generateMetaData({ params: { postId } }: PageProps) {
+export async function generateMetadata({ params: { postId } }: PageProps) {
   const { user } = await validateRequest();
   if (!user) return {};
   const post = await getPost(postId, user.id);
