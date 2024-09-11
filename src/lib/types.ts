@@ -6,7 +6,7 @@ export function getUserDataSelect(loggedInUserId: string) {
     displayName: true,
     avatarUrl: true,
     bio: true,
-    createdAt:true,
+    createdAt: true,
     followers: {
       where: {
         followerId: loggedInUserId,
@@ -18,15 +18,15 @@ export function getUserDataSelect(loggedInUserId: string) {
     _count: {
       select: {
         followers: true,
-        posts : true,
+        posts: true,
       },
     },
   } satisfies Prisma.UserSelect;
 }
 
 export type UserData = Prisma.UserGetPayload<{
-  select : ReturnType<typeof getUserDataSelect>
-}>
+  select: ReturnType<typeof getUserDataSelect>;
+}>;
 
 export function getPostDataInclude(loggedInUserId: string) {
   return {
@@ -35,28 +35,28 @@ export function getPostDataInclude(loggedInUserId: string) {
     },
     attachments: true,
     likes: {
-      where : {
-        userId : loggedInUserId
+      where: {
+        userId: loggedInUserId,
       },
       select: {
-        userId:true
-      }
+        userId: true,
+      },
     },
-bookmarks: {
-  where : {
-    userId : loggedInUserId
-  },
-  select: {
-    userId:true
-  }
-
-},
+    bookmarks: {
+      where: {
+        userId: loggedInUserId,
+      },
+      select: {
+        userId: true,
+      },
+    },
 
     _count: {
-      select : {
-        likes: true
-      }
-    }
+      select: {
+        likes: true,
+        comments:true
+      },
+    },
   } satisfies Prisma.PostInclude;
 }
 
@@ -67,16 +67,32 @@ export interface PostsPage {
   posts: PostData[];
   nextCursor: string | null;
 }
+export function getCommentDataInclude(loggedInUserId: string) {
+  return {
+    user: {
+      select: getUserDataSelect(loggedInUserId),
+    },
+  } satisfies Prisma.CommentInclude;
+}
+
+export type CommentData = Prisma.CommentGetPayload<{
+  include : ReturnType<typeof getCommentDataInclude>;
+}>
+
+export interface CommentsPage {
+  comments : CommentData[],
+  previousCursor: string | null
+}
 export interface FollowerInfo {
   followers: number;
   isFollowedByUser: boolean;
 }
 
 export interface LikeInfo {
-  likes : number;
-  isLikedByUser : boolean
+  likes: number;
+  isLikedByUser: boolean;
 }
 
-export interface BookmarkInfo{
-  isBookmarkedByUser: boolean
+export interface BookmarkInfo {
+  isBookmarkedByUser: boolean;
 }
